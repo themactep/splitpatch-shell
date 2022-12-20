@@ -52,37 +52,26 @@ set -u
 
 show_usage ()
 {
-	local text="USAGE"
-	text="$text\n"
-	text="$text       splitpatch [-a] [-o] [-d string] FILE"
-	text="$text\n"
-	text="$text\nDESCRIPTION"
-	text="$text\n       splitpatch splits a unified patch file into smaller"
-	text="$text numbered patch files. Each output patch file will modify only"
-	text="$text one target file."
-	text="$text\n"
-	text="$text\n       splitpatch will ignore leading lines that aren't part"
-	text="$text of a patch file, so go ahead and feed it shell scripts with"
-	text="$text embedded unified patch files."
-	text="$text\n"
-	text="$text\n       splitpatch outputs the name of each patch file it"
-	text="$text writes along with the patch target for that patch file."
-	text="$text\n"
-	text="$text\nOPTIONS"
-	text="$text\n       -a"
-	text="$text\n          If an output patch file already exists, try to"
-	text="$text append to it instead of aborting."
-	text="$text\n"
-	text="$text\n       -d delimiter"
-	text="$text\n          Use delimiter when splitting the input file instead"
-	text="$text of 'diff'."
-	text="$text\n"
-	text="$text\n       -o"
-	text="$text\n          If an output patch file already exists, try to"
-	text="$text overwrite it instead of aborting. This option will override"
-	text="$text -a."
-	# fmt handles line indentation better than fold.
-	echo "$text" | fmt -w 80
+	echo "USAGE
+       splitpatch [-a] [-o] [-d string] FILE
+
+DESCRIPTION
+       splitpatch splits a unified patch file into smaller numbered patch files. Each output patch file will modify only one target file.
+
+       splitpatch will ignore leading lines that aren't part of a patch file, so go ahead and feed it shell scripts with embedded unified patch files.
+
+       splitpatch outputs the name of each patch file it writes along with the patch target for that patch file.
+
+OPTIONS
+       -a
+          If an output patch file already exists, try to append to it instead of aborting.
+
+       -d delimiter
+          Use delimiter when splitting the input file instead of 'diff'.
+
+       -o
+          If an output patch file already exists, try to overwrite it instead of aborting. This option will override -a.
+" | fmt -w 80
 }
 
 give_up ()
