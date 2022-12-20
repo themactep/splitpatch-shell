@@ -7,7 +7,7 @@
 ################################################################################
 
 # Name of this script.
-scriptname=`basename $_`
+scriptname=$(basename $_)
 
 # The unified patch file being used as input.
 patchfile=""
@@ -109,7 +109,7 @@ do
 			opt_append=1;;
 		d)
 			delim_string="$OPTARG"
-			delim_length=`printf "%s" "$delim_string" | wc -m`;;
+			delim_length=$(printf "%s" "$delim_string" | wc -m);;
 		o)
 			opt_overwrite=1;;
 		[?])
@@ -120,7 +120,7 @@ do
 	esac
 done
 
-shift `expr $OPTIND - 1`
+shift $(expr $OPTIND - 1)
 
 if [ $# -lt 1 ]; then
 	show_usage
@@ -144,24 +144,24 @@ fi
 # don't have a trailing newline.
 while IFS= read -r patchline || test -n "$patchline"
 do
-	if [ "`echo "$patchline" | cut -c -$delim_length`" = "$delim_string" ]; then
+	if [ "$(echo "$patchline" | cut -c -$delim_length)" = "$delim_string" ]; then
 		# Extract $patchtarget for nicer output.
 		# Really only useful in patch files.
 		if [ "$delim_string" = "diff" ]; then
 			# Got a new file. Extract the file name.
-			patchtarget=`echo "$patchline" | cut -c 6-`
+			patchtarget=$(echo "$patchline" | cut -c 6-)
 			# Remove leading "--git" if it exists.
-			if [ "`echo "$patchtarget" | cut -c -5`" = "--git" ]; then
-				patchtarget=`echo "$patchtarget" | cut -c 7-`
+			if [ "$(echo "$patchtarget" | cut -c -5)" = "--git" ]; then
+				patchtarget=$(echo "$patchtarget" | cut -c 7-)
 			fi
 			# Filename is duplicated and delimited by a space in the diff command.
 			# This is probably the wrong way to handle this but it works for now.
-			patchtarget=`echo "$patchtarget" | cut -d " " -f 1`
+			patchtarget=$(echo "$patchtarget" | cut -d " " -f 1)
 		else
 			patchtarget="$patchline"
 		fi
-		filecount=`expr $filecount + 1`
-		outfile=`printf "%03d.patch" $filecount`
+		filecount=$(expr $filecount + 1)
+		outfile=$(printf "%03d.patch" $filecount)
 		# See if outfile already exists and handle it according to the command
 		# options if it does.
 		if [ -e "$outfile" ]; then
