@@ -150,7 +150,8 @@ do
 			patchtarget="$patchline"
 		fi
 		filecount=$(expr $filecount + 1)
-		outfile=$(printf "%03d.patch" $filecount)
+		filename=$(echo "$patchtarget" | cut -d '/' -f 2- | tr '/' '-')
+		outfile=$(printf "%03d-%s.patch" $filecount $filename)
 		# See if outfile already exists and handle it according to the command
 		# options if it does.
 		if [ -e "$outfile" ]; then
